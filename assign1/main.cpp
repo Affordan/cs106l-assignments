@@ -29,13 +29,6 @@ struct Course {
   /* STUDENT TODO */ string
       number_of_units; // use string cause is_valid_course use T{} with string to build it.
   /* STUDENT TODO */ string quarter;
-  Course(const vector<string>& str)
-  {
-    if(str.size()>=3)
-    {
-      std::tie(title, number_of_units, quarter) = std::make_tuple(str[0], str[1],str[2]);
-    }
-  }
 };
 
 /**
@@ -72,7 +65,7 @@ void parse_csv(std::string filename, std::vector<Course> courses) {
   string token;
   while (getline(input, token)) {
     vector<string> courseInfo = split(token, ',');
-    courses.push_back(Course(courseInfo));
+    courses.push_back(Course(courseInfo.at(0),courseInfo.at(1),courseInfo.at(2)));
   }
 }
 
