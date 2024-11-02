@@ -18,7 +18,7 @@
 
 const std::string COURSES_OFFERED_PATH = "student_output/courses_offered.csv";
 const std::string COURSES_NOT_OFFERED_PATH = "student_output/courses_not_offered.csv";
-using std::string;
+using std::string, std::vector;
 /**
  * Represents a course a student can take in ExploreCourses.
  * You must fill in the types of the fields in this struct.
@@ -29,6 +29,13 @@ struct Course {
   /* STUDENT TODO */ string
       number_of_units; // use string cause is_valid_course use T{} with string to build it.
   /* STUDENT TODO */ string quarter;
+  Course(const vector<string>& str)
+  {
+    if(str.size()>=3)
+    {
+      std::tie(title, number_of_units, quarter) = std::make_tuple(str[0], str[1],str[2]);
+    }
+  }
 };
 
 /**
@@ -61,6 +68,12 @@ struct Course {
  */
 void parse_csv(std::string filename, std::vector<Course> courses) {
   /* (STUDENT TODO) Your code goes here... */
+  std::istringstream input(filename);
+  string token;
+  while (getline(input, token)) {
+    vector<string> courseInfo = split(token, ',');
+    courses.push_back(Course(courseInfo));
+  }
 }
 
 /**
