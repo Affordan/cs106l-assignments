@@ -15,10 +15,12 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <exception>
 
 const std::string COURSES_OFFERED_PATH = "student_output/courses_offered.csv";
 const std::string COURSES_NOT_OFFERED_PATH = "student_output/courses_not_offered.csv";
 using std::string, std::vector;
+using std::getline;
 /**
  * Represents a course a student can take in ExploreCourses.
  * You must fill in the types of the fields in this struct.
@@ -61,12 +63,22 @@ struct Course {
  */
 void parse_csv(std::string filename, std::vector<Course> courses) {
   /* (STUDENT TODO) Your code goes here... */
-  std::istringstream input(filename);
-  string token;
-  while (getline(input, token)) {
-    vector<string> courseInfo = split(token, ',');
-    courses.push_back(Course(courseInfo.at(0),courseInfo.at(1),courseInfo.at(2)));
-  }
+    std::ifstream input(filename);
+    if (!input.is_open())
+        throw std::runtime_error("Error opening file: " + filename);
+
+    string token;
+    getline(input, token);  // remove the header
+    while (getline(input, token))
+    {
+        vector<string> courseInfo = split(token, ',');
+        if (courseInfo.size() == 3)
+        {
+            courses.push_back(Course{courseInfo.at(0),courseInfo.at(1),courseInfo.at(2)});
+        }
+    }
+
+    input.close();
 }
 
 /**
