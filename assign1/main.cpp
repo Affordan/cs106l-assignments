@@ -97,6 +97,28 @@ void parse_csv(std::string filename, std::vector<Course>& courses) {
  */
 void write_courses_offered(std::vector<Course>& all_courses) {
   /* (STUDENT TODO) Your code goes here... */
+    std::ofstream output("student_output/courses_offered.csv");
+    std::ifstream input("courses.csv");
+    if (!output.is_open() || !input.is_open()) {
+        throw std::runtime_error("Could not open file");
+    }
+    string header;
+    getline(input, header);
+    output << header << std::endl;
+    string line;
+    vector<Course> offered_courses;
+    for(auto&c:all_courses)
+    {
+      if(c.quarter!="null")
+      {
+      offered_courses.push_back(c);
+      output << c.title << "," << c.number_of_units << "," << c.quarter << std::endl;
+      }
+    }
+    for(auto&c:offered_courses)
+    {
+      delete_elem_from_vector(all_courses, c);
+    };
 }
 
 /**
@@ -114,6 +136,20 @@ void write_courses_offered(std::vector<Course>& all_courses) {
  */
 void write_courses_not_offered(std::vector<Course>& unlisted_courses) {
   /* (STUDENT TODO) Your code goes here... */
+    std::ofstream output("student_output/courses_not_offered.csv");
+    std::ifstream input("courses.csv");
+    if (!output.is_open()||!input.is_open()) {
+        throw std::runtime_error("Could not open file");
+    }
+    string header;
+    getline(input, header);
+    output << header << std::endl;
+    input.close();
+    for(auto&c:unlisted_courses)
+    {
+      output << c.title << "," << c.number_of_units << "," << c.quarter << std::endl;
+    }  
+    output.close();
 }
 
 int main() {
@@ -126,9 +162,9 @@ int main() {
   /* Uncomment for debugging... */
   print_courses(courses);
 
-  //   write_courses_offered(courses);
-  //   write_courses_not_offered(courses);
+    write_courses_offered(courses);
+    write_courses_not_offered(courses);
 
-  //   return run_autograder();
+    // return run_autograder();
   return 0;
 }
