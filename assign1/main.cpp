@@ -59,13 +59,21 @@ struct Course {
  * @param filename The name of the file to parse.
  * @param courses  A vector of courses to populate.
  */
-void parse_csv(std::string filename, std::vector<Course> courses) {
+void parse_csv(std::string filename, std::vector<Course>& courses) {
   /* (STUDENT TODO) Your code goes here... */
-  std::istringstream input(filename);
-  string token;
-  while (getline(input, token)) {
-    vector<string> courseInfo = split(token, ',');
-    courses.push_back(Course(courseInfo.at(0),courseInfo.at(1),courseInfo.at(2)));
+
+  std::ifstream input(filename);
+  if (!input.is_open()) {
+    throw std::runtime_error("Could not open:" + filename);
+  }
+  string header;
+  getline(input, header);
+  string line;
+  while (getline(input, line)) {
+    vector<string> fields = split(line, ',');
+    if (fields.size() == 3) {
+      courses.push_back(Course{fields[0], fields[1], fields[2]});
+    }
   }
 }
 
@@ -87,7 +95,7 @@ void parse_csv(std::string filename, std::vector<Course> courses) {
  * @param all_courses A vector of all courses gotten by calling `parse_csv`.
  *                    This vector will be modified by removing all offered courses.
  */
-void write_courses_offered(std::vector<Course> all_courses) {
+void write_courses_offered(std::vector<Course>& all_courses) {
   /* (STUDENT TODO) Your code goes here... */
 }
 
@@ -104,7 +112,7 @@ void write_courses_offered(std::vector<Course> all_courses) {
  *
  * @param unlisted_courses A vector of courses that are not offered.
  */
-void write_courses_not_offered(std::vector<Course> unlisted_courses) {
+void write_courses_not_offered(std::vector<Course>& unlisted_courses) {
   /* (STUDENT TODO) Your code goes here... */
 }
 
@@ -116,10 +124,11 @@ int main() {
   parse_csv("courses.csv", courses);
 
   /* Uncomment for debugging... */
-  // print_courses(courses);
+  print_courses(courses);
 
-  write_courses_offered(courses);
-  write_courses_not_offered(courses);
+  //   write_courses_offered(courses);
+  //   write_courses_not_offered(courses);
 
-  return run_autograder();
+  //   return run_autograder();
+  return 0;
 }
