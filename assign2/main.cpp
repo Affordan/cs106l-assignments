@@ -15,7 +15,7 @@
 #include <unordered_set>
 
 #include "utils.h"
-
+using std::string;
 std::string kYourName = "STUDENT TODO"; // Don't forget to change this!
 
 /**
@@ -31,6 +31,7 @@ std::string kYourName = "STUDENT TODO"; // Don't forget to change this!
  */
 std::set<std::string> get_applicants(std::string filename) {
   // STUDENT TODO: Implement this function.
+  return std::set<std::string>();
 }
 
 /**
@@ -43,6 +44,7 @@ std::set<std::string> get_applicants(std::string filename) {
  */
 std::queue<const std::string*> find_matches(std::string name, std::set<std::string>& students) {
   // STUDENT TODO: Implement this function.
+return std::queue<const std::string*>(); 
 }
 
 /**
@@ -57,6 +59,7 @@ std::queue<const std::string*> find_matches(std::string name, std::set<std::stri
  */
 std::string get_match(std::queue<const std::string*>& matches) {
   // STUDENT TODO: Implement this function.
+return string();
 }
 
 /* #### Please don't modify this call to the autograder! #### */

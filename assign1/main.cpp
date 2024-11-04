@@ -75,6 +75,7 @@ void parse_csv(std::string filename, std::vector<Course>& courses) {
       courses.push_back(Course{fields[0], fields[1], fields[2]});
     }
   }
+  input.close();
 }
 
 /**
@@ -165,6 +166,5 @@ int main() {
     write_courses_offered(courses);
     write_courses_not_offered(courses);
 
-    // return run_autograder();
-  return 0;
+    return run_autograder();
 }
