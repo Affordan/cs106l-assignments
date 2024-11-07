@@ -1,11 +1,29 @@
-Before submitting this file, make sure that there are no more TODO
-placeholders remaining in the file (and remove this comment too).
 
 Marriage Pact
 -------------
 
 Q1. It is your choice to use either an ordered or unordered set. In a few sentences, what are some of the tradeoffs between the two? Additionally, please give an example (that has not been shown in lecture) of a valid hash function that could be used to hash student names for an unordered set.
-A1. TODO
+A1.
+I learned from cppreference.com that unordered_set use a hash code to store data into buckets, and set is implemented by red-black tree! 
+When you iterate the set it outs the value by stable order!while unordered_set in a unstable order.
+here is detail summary
+## Implementation
+- set: red-black tree
+- unordered_set: hash table
+## storage order
+- set: stable 
+- unordered_set: unstable
+## Asymptotics
+- set: average O(logn)
+- unordered_set: best:O(1) worst:O(n)
+## memory usage
+- set: tree structure takes less memory
+- unordered_set: hash table takes more memory
+## usage
+- set: keep elements ordered
+- unordered_set: quick insert and search
+
 
 Q2. Note that we are saving pointers to names in the queue, not names themselves. Why might this be desired in this problem? What happens if the original set where the names are stored goes out of scope and the pointers are referenced?
-A2. TODO
+A2.
+save memory and provide direct access to the string 
